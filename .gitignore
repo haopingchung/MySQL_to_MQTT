@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Log
+*.log
+
+# 設定檔（可能包含 MySQL 密碼）
+conf.json
