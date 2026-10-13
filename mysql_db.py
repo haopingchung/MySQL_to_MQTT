@@ -13,7 +13,8 @@ def connect_mysql(config):
             database=config["mySql"]["database"],
             user=config["mySql"]["user"],
             password=config["mySql"]["password"],
-            connection_timeout=10
+            connection_timeout=10,
+            use_pure=True
         )
         return conn
 
@@ -33,7 +34,7 @@ def read_mysql(conn, config):
     try:
         table = config["mySql"]["table"]
         cursor.execute(
-            f"SELECT MValue FROM `{table}` WHERE Mstation=1 AND Mitem=1 AND MDate=%s",
+            f"SELECT MValue FROM `{table}` WHERE Mstation=2 AND Mitem=1 AND MDate=%s",
             (query_time,)
         )
 
