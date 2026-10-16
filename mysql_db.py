@@ -24,7 +24,7 @@ def connect_mysql(config):
 
 
 # 查詢 MySQL 資料
-def read_mysql(conn, config):
+def read_mysql(conn, config, device):
     query_time = (datetime.now() - timedelta(hours=1)).replace(
         minute=0, second=0, microsecond=0
     )
@@ -34,7 +34,7 @@ def read_mysql(conn, config):
     try:
         table = config["mySql"]["table"]
         cursor.execute(
-            f"SELECT MValue FROM `{table}` WHERE Mstation=2 AND Mitem=1 AND MDate=%s",
+            f"SELECT MValue FROM `{table}` WHERE MStation={device['MStation']} AND Mitem=1 AND MDate=%s",
             (query_time,)
         )
 

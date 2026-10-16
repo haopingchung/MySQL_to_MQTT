@@ -26,17 +26,19 @@ def main():
 
     if conn:
         try:
-            result = read_mysql(conn, config)
+            for device in config["device"]:
+                result = read_mysql(conn, config, device)
+
+                # 發布 MQTT
+                if result is not None:
+                    publish_mqtt(config, result, device)
+                else:
+                    logging.warning("查無資料")
 
         finally:
             close_mysql(conn)
 
-        # 發布 MQTT
-        if result is not None:
-            publish_mqtt(config, result)
-        else:
-            logging.warning("查無資料")
-
+        
 
 if __name__ == "__main__":
     main()

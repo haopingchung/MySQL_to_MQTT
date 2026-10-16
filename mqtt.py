@@ -10,14 +10,14 @@ def load_config():
         return json.load(f)
 
 
-def publish_mqtt(config, value):
+def publish_mqtt(config, value, device):
     mqtt_config = config["mqtt"]
 
-    # 從 MQTT Topic 取得 ID
-    topic = mqtt_config["topic"]
+    # 從 MQTT topic1 取得 ID
+    topic = device["topic"]
     device_id = topic.split("/")[2]
-    lat = mqtt_config["lat"]
-    lon = mqtt_config["lon"]
+    lat = device["lat"]
+    lon = device["lon"]
 
     # 組合 JSON 資料
     payload = {
@@ -52,7 +52,7 @@ def publish_mqtt(config, value):
 
         # 發布 MQTT
         info = client.publish(
-            topic=mqtt_config["topic"],
+            topic=topic,
             payload=payload_json,
             qos=int(mqtt_config["qos"])
         )
